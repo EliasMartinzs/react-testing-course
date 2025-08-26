@@ -38,9 +38,23 @@ describe("03-search-by-role", () => {
     render(<Sandbox />);
 
     expect(
-      screen.getByRole("button", { name: "Click me" })
-    ).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Submit" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Cancel" })).toBeInTheDocument();
+      screen.queryByRole("button", { name: "Error" })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: "Async button" })
+    ).not.toBeInTheDocument();
+  });
+
+  it("async buttons appears after delay", async () => {
+    render(<Sandbox />);
+
+    const buttonName = /async button/i;
+
+    expect(
+      screen.queryByRole("button", { name: buttonName })
+    ).not.toBeInTheDocument();
+
+    const buttonAsync = await screen.findByRole("button", { name: buttonName });
+    expect(buttonAsync).toBeInTheDocument();
   });
 });
