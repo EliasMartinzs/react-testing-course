@@ -1,6 +1,14 @@
+import { useState } from "react";
+import SearchForm from "./components/form/SearchForm";
+import UserProfile from "./components/user/UserProfile";
+
 const App = () => {
+  const [userName, setUserName] = useState("quincylarson");
   return (
-    <h1 className='text-3xl font-bold p-8'>Search Github Users - Starter</h1>
+    <main className="mx-auto max-w-6xl px-7 py-20">
+      <SearchForm userName={userName} setUserName={setUserName} />
+      <UserProfile userName={userName} />
+    </main>
   );
 };
 export default App;
